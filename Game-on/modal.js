@@ -28,6 +28,10 @@ function closeForm() {
 }
 // fonction validate
 function validate() {
-    alert("Merci ! Votre réservation a été reçue.");
-
+    let formOK = false;
+    if (formOK === true) {
+        alert("Merci ! Votre réservation a été reçue.");
+    } else {
+        alert("error");
+    }
 }
