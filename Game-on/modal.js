@@ -26,3 +26,8 @@ function launchModal() {
 function closeForm() {
     modalbg.style.display = "none";
 }
+// fonction validate
+function validate() {
+    alert("Merci ! Votre réservation a été reçue.");
+
+}
