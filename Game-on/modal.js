@@ -32,28 +32,40 @@ function validate() {
     let isFirstNameOk = checkFristName();
     let isLastOk = checkLastName();
     let isCheckboxCgChecked = checkCheckBox1();
-
+    var quantity = document.getElementById("quantity");
+    let isQuantityOk = checkQuantity(quantity);
+    var email = document.getElementById("email");
+    let isEmailOk = checkEmail(email.value);
+    let isAtLeastOneLocationChecked = checkLocation();
 
     if (isFirstNameOk == false) {
         formOK = false;
-
     }
 
     if (isLastOk == false) {
         formOk = false;
+    }
 
+    if (isEmailOk == false) {
+        formOK = false;
+    }
+
+    if (isQuantityOk == false) {
+        formOK = false;
+    }
+
+    if (isAtLeastOneLocationChecked == false) {
+        formOK = false;
     }
 
     if (isCheckboxCgChecked == false) {
         formOK = false;
-
     }
-
 
     if (formOK == true) {
         alert("Merci ! Votre réservation a été reçue.");
     } else {
-        alert("error");
+        alert("Formulaire invalide !");
     }
 
 }
@@ -83,8 +95,6 @@ function checkLastName() {
     }
     return isLastOk;
 
-
-
 }
 
 /** contrôle si la case est coché 
@@ -93,8 +103,47 @@ function checkLastName() {
  */
 function checkCheckBox1() {
     var checkbox = document.getElementById("checkbox1");
-
     return checkbox.checked;
+}
+
+/** Contrôle si quantity est un nombre
+ * 
+ * @param {*} quantity 
+ * @returns 
+ */
+function checkQuantity(quantity) {
+    let isQuantityOk = !isNaN(quantity.value);
+    return isQuantityOk;
+}
+
+/** Contrôle si un mail est au bon format 
+ * 
+ * @param {*} email 
+ * @returns 
+ */
+function checkEmail(email) {
+    let isEmailOk = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+    return isEmailOk;
+}
 
 
+/** contrôle  si un bouton est coché 
+ * 
+ * @returns 
+ */
+function checkLocation() {
+    // on recupère tous les boutons 
+    var radios = document.getElementsByName("location");
+    // on recupère le nombre de bouton 
+    let nbButton = radios.length;
+
+    // pour i = 0 jusqu'à i < nbButton , pour chaque bouton 
+    for (var i = 0; i < nbButton; i++) {
+        // on verifie que le bouton d'indice i est coché , si oui on renvoi true 
+        if (radios[i].checked) {
+            return true;
+        }
+    }
+
+    return false;
 }
