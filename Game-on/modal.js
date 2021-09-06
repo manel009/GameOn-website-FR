@@ -28,10 +28,51 @@ function closeForm() {
 }
 // fonction validate
 function validate() {
-    let formOK = false;
-    if (formOK === true) {
+    var formOK = true;
+    let isFirstNameOk = checkFristName();
+    let isLastOk = checkLastName();
+
+    if (isFirstNameOk == false) {
+        formOK = false;
+
+    }
+
+    if (isLastOk == false) {
+        formOk = false;
+
+    }
+
+    if (formOK == true) {
         alert("Merci ! Votre réservation a été reçue.");
     } else {
         alert("error");
     }
+
+}
+/** controle si le prénom est valide 
+ * renvoi true si les contrôles sont ok et false si les contrôles ne sont pas bon
+ * @returns 
+ */
+function checkFristName() {
+    var firstname = document.getElementById("first");
+    let isFirstNameOk = false;
+    if (firstname.value.length >= 2) {
+        isFirstNameOk = true;
+    }
+    return isFirstNameOk;
+
+}
+/** contrôle si nom de famille est valide
+ * 
+ * @returns 
+ */
+function checkLastName() {
+
+    var lastname = document.getElementById("last");
+    let isLastOk = false;
+    if (lastname.value.length >= 2) {
+        isLastOk = true;
+    }
+    return isLastOk;
+
 }
