@@ -28,6 +28,7 @@ function closeForm() {
 }
 // fonction validate
 function validate() {
+    // dataEnErreur();
     var formOK = true;
     let isFirstNameOk = checkFristName();
     let isLastOk = checkLastName();
@@ -37,35 +38,59 @@ function validate() {
     var email = document.getElementById("email");
     let isEmailOk = checkEmail(email.value);
     let isAtLeastOneLocationChecked = checkLocation();
+    document.getElementById("errorFirst").innerHTML = "";
+    document.getElementById("errorLast").innerHTML = "";
+    document.getElementById("errorEmail").innerHTML = "";
+    document.getElementById("errorBirthdate").innerHTML = "";
+    document.getElementById("errorQuantity").innerHTML = "";
+    document.getElementById("errorLocation").innerHTML = "";
+    document.getElementById("errorCg").innerHTML = "";
+
 
     if (isFirstNameOk == false) {
         formOK = false;
+        document.getElementById("errorFirst").innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
     }
 
     if (isLastOk == false) {
         formOk = false;
+        document.getElementById("errorLast").innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+
     }
 
-    if (isEmailOk == false) {
+    if (!isEmailOk) {
         formOK = false;
+        document.getElementById("errorEmail").innerHTML = "Veuillez entrer un email valide.";
+    }
+
+    if (!checkDate()) {
+        formOK = false
+        document.getElementById("errorBirthdate").innerHTML = "Veuillez entrer une date."
+
     }
 
     if (isQuantityOk == false) {
         formOK = false;
+        document.getElementById("errorQuantity").innerHTML = "Veuillez entrer un nombre valide.";
     }
 
     if (isAtLeastOneLocationChecked == false) {
         formOK = false;
+        document.getElementById("errorLocation").innerHTML = "Veuillez sélectionner une ville";
     }
 
     if (isCheckboxCgChecked == false) {
         formOK = false;
+        document.getElementById("errorCg").innerHTML = "Vous devez vérifier que vous acceptez les termes et conditions.";
+
     }
+
 
     if (formOK == true) {
         alert("Merci ! Votre réservation a été reçue.");
+        return true;
     } else {
-        alert("Formulaire invalide !");
+        return false;
     }
 
 }
@@ -87,7 +112,6 @@ function checkFristName() {
  * @returns 
  */
 function checkLastName() {
-
     var lastname = document.getElementById("last");
     let isLastOk = false;
     if (lastname.value.length >= 2) {
@@ -126,6 +150,19 @@ function checkEmail(email) {
     return isEmailOk;
 }
 
+/** contrôle si la date est remplie ou vide
+ * 
+ * @returns 
+ */
+function checkDate() {
+    var birthdate = document.getElementById("birthdate");
+    if (birthdate.value == "") {
+        return false;
+
+    }
+    return true;
+}
+
 
 /** contrôle  si un bouton est coché 
  * 
@@ -146,4 +183,15 @@ function checkLocation() {
     }
 
     return false;
+}
+
+/** contounrne les contrôles html 
+ * 
+ */
+function dataEnErreur() {
+    document.getElementById("first").value = "M";
+    document.getElementById("last").value = "M";
+    document.getElementById("email").value = "M";
+    document.getElementById("birthdate").value = "";
+    document.getElementById("quantity").value = "";
 }
