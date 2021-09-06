@@ -31,6 +31,8 @@ function validate() {
     var formOK = true;
     let isFirstNameOk = checkFristName();
     let isLastOk = checkLastName();
+    let isCheckboxCgChecked = checkCheckBox1();
+
 
     if (isFirstNameOk == false) {
         formOK = false;
@@ -41,6 +43,12 @@ function validate() {
         formOk = false;
 
     }
+
+    if (isCheckboxCgChecked == false) {
+        formOK = false;
+
+    }
+
 
     if (formOK == true) {
         alert("Merci ! Votre réservation a été reçue.");
@@ -74,5 +82,19 @@ function checkLastName() {
         isLastOk = true;
     }
     return isLastOk;
+
+
+
+}
+
+/** contrôle si la case est coché 
+ * 
+ * @returns 
+ */
+function checkCheckBox1() {
+    var checkbox = document.getElementById("checkbox1");
+
+    return checkbox.checked;
+
 
 }
