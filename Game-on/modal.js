@@ -28,7 +28,7 @@ function closeForm() {
 }
 // fonction validate
 function validate() {
-    // dataEnErreur();
+    //   dataEnErreur();
     var formOK = true;
     let isFirstNameOk = checkFristName();
     let isLastOk = checkLastName();
