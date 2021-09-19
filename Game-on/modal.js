@@ -7,37 +7,62 @@ function editNav() {
     }
 }
 
-// DOM Elements
-// on selectionne l'élément qui a la class bground et on le met dans modalbg
+// on declare une constante "modalbg" en lui affectant le premier element qui a la classe "bground" dans le html
 const modalbg = document.querySelector(".bground");
-// on selectionne tous les éléments qui ont la class modal-btn
+// on declare une constante "modalBtn" en lui affectant TOUT LES ELEMENTS qui ont la classe "modal-btn" dans le html
 const modalBtn = document.querySelectorAll(".modal-btn");
+// on declare une constante "modalBtn" en lui affectant TOUT LES ELEMENTS qui ont la classe "modal-btn" dans le html
 const formData = document.querySelectorAll(".formData");
 
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+// Pour chaque element dans la constante modalBtn, on valorise "btn" avec l'element en cours de lecture par le foreach
+// => pour l'element en cours de lecture symbolisé par la variable "btn", lorsqu'on clique dessus "click", on lui dit d'executer la methode "launchModal"
+modalBtn.forEach((btn) => btn.addEventListener("click", displayForm));
 
-// launch modal form
-function launchModal() {
+/**
+ * Pour l'element html dans la constante "modalbg", on va modifier son style en allant valorisé la propriete "display"
+ * avec la valeur "block"
+ */
+function displayForm() {
     modalbg.style.display = "block";
 }
 
-// Fonction fermeture formulaire
+/**
+ * Pour l'element html dans la constante "modalbg", on va modifier son style en allant valorisé la propriete "display"
+ * avec la valeur "none" (cache l'element html)
+ */
 function closeForm() {
     modalbg.style.display = "none";
 }
-// fonction validate
+
+/**
+ * Controle les valeurs de chaques champs du formulaire.
+ * Si un champs est en erreur, affiche un message en dessous et empeche l'envoi.
+ * Si tous les champs sont OK, affiche une pop-up avec un message de succes.
+ * 
+ * @returns 
+ */
 function validate() {
     //   dataEnErreur();
+    // on creer une variable qui s'appel "formOK" et qui contient la valeur true
     var formOK = true;
+    // on creer une variable qui s'appelle "isFirstNameOk". Elle contient le resultat de la fonction "checkFirstName"
     let isFirstNameOk = checkFristName();
     let isLastOk = checkLastName();
     let isCheckboxCgChecked = checkCheckBox1();
+
+    // on recupere l'element qui a l'id "quantity"
     var quantity = document.getElementById("quantity");
-    let isQuantityOk = checkQuantity(quantity);
+    // on creer une variable "isQuantityOk" qui contient le resultat de checkQuantity avec en parametre le champs quantity recupere juste au dessus
+    let isQuantityOk = checkQuantity(quantity.value);
+
+    // Meme fonctionnement que pour checkQuantity
     var email = document.getElementById("email");
     let isEmailOk = checkEmail(email.value);
+
+    // on declare une variable qui s'appelle "isAtLeastOneLocationChecked". Elle contient le resultat de la fonction "checkLocation"
     let isAtLeastOneLocationChecked = checkLocation();
+
+    // on vide les message d'erreur existant avant de faire les controles
     document.getElementById("errorFirst").innerHTML = "";
     document.getElementById("errorLast").innerHTML = "";
     document.getElementById("errorEmail").innerHTML = "";
@@ -46,50 +71,51 @@ function validate() {
     document.getElementById("errorLocation").innerHTML = "";
     document.getElementById("errorCg").innerHTML = "";
 
-
+    // si la variable firstnameOk est équivalent à false alors  formOk egal à false et on affiche messsage d'erreur 
     if (isFirstNameOk == false) {
         formOK = false;
         document.getElementById("errorFirst").innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
     }
-
+    // si la variable isLastOk est équivalent à false alors formOk egal false et on affiche message d'erreur
     if (isLastOk == false) {
         formOk = false;
         document.getElementById("errorLast").innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
 
     }
-
+    // si la variable isEmailOk egal false alors on affiche le message veuillez entrer un email valide 
     if (!isEmailOk) {
         formOK = false;
         document.getElementById("errorEmail").innerHTML = "Veuillez entrer un email valide.";
     }
-
+    // si la fonction !checkDate renvoi false alors on affiche le message veuillez entrer une date 
     if (!checkDate()) {
         formOK = false
         document.getElementById("errorBirthdate").innerHTML = "Veuillez entrer une date."
 
     }
-
+    // si la variable isQuantityOk est équivalente à false alors on affiche le message veuillez entrer un nombre valide 
     if (isQuantityOk == false) {
         formOK = false;
         document.getElementById("errorQuantity").innerHTML = "Veuillez entrer un nombre valide.";
     }
-
+    // si la variable isAtleastOneLoactionChecked est equivalente à false alors on affiche le message veuillez sélectionner une ville 
     if (isAtLeastOneLocationChecked == false) {
         formOK = false;
         document.getElementById("errorLocation").innerHTML = "Veuillez sélectionner une ville";
     }
-
+    // si la variable isCheckboxCgChecked est équivalente à false alors on affiche le message veuillez verifier que vous acceptez 
+    // les termes et les conditons 
     if (isCheckboxCgChecked == false) {
         formOK = false;
         document.getElementById("errorCg").innerHTML = "Vous devez vérifier que vous acceptez les termes et conditions.";
 
     }
-
-
+    //si formOK equivalente à true alors on affiche le message votre réservation à été reçu
     if (formOK == true) {
         alert("Merci ! Votre réservation a été reçue.");
         return true;
     } else {
+        // Laisse le formulaire afficher avec les erreurs
         return false;
     }
 
@@ -99,8 +125,11 @@ function validate() {
  * @returns 
  */
 function checkFristName() {
+    // on creer une variable "firstname" qui contient l'element HTML avec l'id "first"
     var firstname = document.getElementById("first");
     let isFirstNameOk = false;
+    // Pour l'element qui a l'id "first", on recupere sa valeur ("value") et on verifie si 
+    // le nombre de caractere qu'il contient ("lenght") est >= a 2
     if (firstname.value.length >= 2) {
         isFirstNameOk = true;
     }
@@ -113,12 +142,7 @@ function checkFristName() {
  */
 function checkLastName() {
     var lastname = document.getElementById("last");
-    let isLastOk = false;
-    if (lastname.value.length >= 2) {
-        isLastOk = true;
-    }
-    return isLastOk;
-
+    return (lastname.value.length >= 2);
 }
 
 /** contrôle si la case est coché 
@@ -136,7 +160,9 @@ function checkCheckBox1() {
  * @returns 
  */
 function checkQuantity(quantity) {
-    let isQuantityOk = !isNaN(quantity.value);
+    // on utilise la fonction isNaN (pour isNotANumber) en lui passant la valeur du champs quantity passer en parametre.
+    // on inverse le resultat avec un ! devant car on veut verifier si c'est un nombre donc l'inverse de isNaN
+    let isQuantityOk = !isNaN(quantity);
     return isQuantityOk;
 }
 
@@ -154,6 +180,8 @@ function checkEmail(email) {
  * 
  * @returns 
  */
+//!! la fonction va verfifer si la date est remplie  , variable birthdate  ( avec l'élement directement pris par id du html )
+// !! donc si date équivalent à champ vide alors il retourne faux 
 function checkDate() {
     var birthdate = document.getElementById("birthdate");
     if (birthdate.value == "") {
@@ -174,10 +202,10 @@ function checkLocation() {
     // on recupère le nombre de bouton 
     let nbButton = radios.length;
 
-    // pour i = 0 jusqu'à i < nbButton , pour chaque bouton 
-    for (var i = 0; i < nbButton; i++) {
+    // pour position = 0 jusqu'à i < nbButton , pour chaque bouton 
+    for (var position = 0; position < nbButton; position++) {
         // on verifie que le bouton d'indice i est coché , si oui on renvoi true 
-        if (radios[i].checked) {
+        if (radios[position].checked) {
             return true;
         }
     }
@@ -189,8 +217,7 @@ function checkLocation() {
  * 
  */
 function dataEnErreur() {
-    document.getElementById("first").value = "M";
-    document.getElementById("last").value = "M";
+    // recupère l'élement par id email et on lui donne la valeur "M"
     document.getElementById("email").value = "M";
     document.getElementById("birthdate").value = "";
     document.getElementById("quantity").value = "";
