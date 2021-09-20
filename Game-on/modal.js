@@ -19,7 +19,7 @@ const formData = document.querySelectorAll(".formData");
 modalBtn.forEach((btn) => btn.addEventListener("click", displayForm));
 
 /**
- * Pour l'element html dans la constante "modalbg", on va modifier son style en allant valorisé la propriete "display"
+ * Pour l'element html dans la constante "modalbg", on va modifier son style en allant valoriser la propriete "display"
  * avec la valeur "block"
  */
 function displayForm() {
@@ -78,7 +78,7 @@ function validate() {
     }
     // si la variable isLastOk est équivalent à false alors formOk egal false et on affiche message d'erreur
     if (isLastOk == false) {
-        formOk = false;
+        formOK = false;
         document.getElementById("errorLast").innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
 
     }
