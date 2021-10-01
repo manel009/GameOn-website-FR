@@ -52,7 +52,7 @@
         <div class="bground">
             <div class="content">
                 <span class="close" onclick="closeForm();"></span>
-                <div class="modal-body">
+                <div class="modal-body" id="modal-body">
                     <form name="reserve" action="index.html" method="get" onsubmit="return validate();">
                         <div class="formData">
                             <label for="first">Prénom</label><br>
@@ -115,8 +115,8 @@
                         </div>
 
                         <div class="formData">
-                            <input class="checkbox-input" type="checkbox" id="checkbox1" checked required />
-                            <label class="checkbox2-label" for="checkbox1" required>
+                            <input class="checkbox-input" type="checkbox" id="checkbox1" checked />
+                            <label class="checkbox2-label" for="checkbox1">
                               <span class="checkbox-icon"></span> J'ai lu et accepté les conditions d'utilisation.
                             </label>
                             <span id="errorCg" class="errorMessage"></span>

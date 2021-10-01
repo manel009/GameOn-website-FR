@@ -112,8 +112,8 @@ function validate() {
     }
     //si formOK equivalente à true alors on affiche le message votre réservation à été reçu
     if (formOK == true) {
-        alert("Merci ! Votre réservation a été reçue.");
-        return true;
+        document.getElementById("modal-body").innerHTML = '<div class= "modal-sucess" > <h1> Thank you for submitting your registration details </h1> <input class="btn-submit" onclick="closeForm()" class="button" value="Close" /> </div>';
+        return false;
     } else {
         // Laisse le formulaire afficher avec les erreurs
         return false;
