@@ -7,7 +7,7 @@ function editNav() {
     }
 }
 
-// on declare une constante "modalbg" en lui affectant le premier element qui a la classe "bground" dans le html
+// on declare une constante "modalbg" en lui affectant le premier element qui a la classe "bground" dans le html div du formulaire 
 const modalbg = document.querySelector(".bground");
 // on declare une constante "modalBtn" en lui affectant TOUT LES ELEMENTS qui ont la classe "modal-btn" dans le html
 const modalBtn = document.querySelectorAll(".modal-btn");
@@ -46,8 +46,10 @@ function validate() {
     // on creer une variable qui s'appel "formOK" et qui contient la valeur true
     var formOK = true;
     // on creer une variable qui s'appelle "isFirstNameOk". Elle contient le resultat de la fonction "checkFirstName"
-    let isFirstNameOk = checkFristName();
-    let isLastOk = checkLastName();
+    var firstname = document.getElementById("first");
+    var lastname = document.getElementById("last");
+    let isFirstNameOk = checkFirstAndLast(firstname);
+    let isLastOk = checkFirstAndLast(lastname);
     let isCheckboxCgChecked = checkCheckBox1();
 
     // on recupere l'element qui a l'id "quantity"
@@ -120,29 +122,16 @@ function validate() {
     }
 
 }
-/** controle si le prénom est valide 
- * renvoi true si les contrôles sont ok et false si les contrôles ne sont pas bon
- * @returns 
- */
-function checkFristName() {
-    // on creer une variable "firstname" qui contient l'element HTML avec l'id "first"
-    var firstname = document.getElementById("first");
-    let isFirstNameOk = false;
-    // Pour l'element qui a l'id "first", on recupere sa valeur ("value") et on verifie si 
-    // le nombre de caractere qu'il contient ("lenght") est >= a 2
-    if (firstname.value.length >= 2) {
-        isFirstNameOk = true;
-    }
-    return isFirstNameOk;
 
-}
+
+
 /** contrôle si nom de famille est valide
  * 
  * @returns 
  */
-function checkLastName() {
-    var lastname = document.getElementById("last");
-    return (lastname.value.length >= 2);
+function checkFirstAndLast(nameToTest) {
+
+    return (nameToTest.value.length >= 2);
 }
 
 /** contrôle si la case est coché 
@@ -162,8 +151,8 @@ function checkCheckBox1() {
 function checkQuantity(quantity) {
     // on utilise la fonction isNaN (pour isNotANumber) en lui passant la valeur du champs quantity passer en parametre.
     // on inverse le resultat avec un ! devant car on veut verifier si c'est un nombre donc l'inverse de isNaN
-    let isQuantityOk = !isNaN(quantity);
-    return isQuantityOk;
+    let isQuantityOk = isNaN(quantity) || quantity == "";
+    return !isQuantityOk;
 }
 
 /** Contrôle si un mail est au bon format 
